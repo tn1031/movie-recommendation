@@ -38,8 +38,8 @@ exec.MF <- function(ratings, conf, cv=0) {
       res <- fit(train, users, items, conf$K, conf$lmd, conf$epochs)
       rmse[t] <- compute.rmse(test, res$X, res$Y)
       end.gl <- proc.time()
-      sprintf("cv: %d / rmse: %f / time: %.2f", 
-              t, (end.gl-start.gl)["elapsed"], rmse[t])
+      message(sprintf("cv: %d / rmse: %f / time: %.2f", 
+              t, (end.gl-start.gl)["elapsed"], rmse[t]))
     }
     return(list(X=res$X, Y=res$Y, rmse=mean(rmse)))
   } else {
@@ -48,7 +48,7 @@ exec.MF <- function(ratings, conf, cv=0) {
     start.gl <- proc.time()
     res <- fit(ratings, users, items, conf$K, conf$lmd, conf$epochs)
     end.gl <- proc.time()
-    sprintf("done. / time: %.2f", (end.gl-start.gl)["elapsed"])
+    message(sprintf("done. / time: %.2f", (end.gl-start.gl)["elapsed"]))
     return(list(X=res$X, Y=res$Y))
   }
 }
